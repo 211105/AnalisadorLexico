@@ -1,24 +1,28 @@
 import re
 import tkinter as tk
 
-reservadas = ["for", "do", "while", "if", "else"]
 
 def analizar_linea(linea):
     tokens = []
+    reservadas = ["for", "do", "while", "if", "else"]
+    
     for token in reservadas:
         matches = re.findall(r"\b{}\b".format(token), linea)
         for match in matches:
             tokens.append(f"<Reservada     {token}>   Simbolo     {token}")
             linea = linea.replace(match, " ", 1)
+            
     matches = re.findall(r"(?<!\()(\()(?!\()", linea)
     for match in matches:
         tokens.append(f"<Parentesis Apertura {match}>")
         linea = linea.replace(match, " ", 1)
+        
     matches = re.findall(r"(?<!\))(\))(?!\))", linea)
     for match in matches:
         tokens.append(f"<Parentesis Cierre {match}>")
         linea = linea.replace(match, " ", 1)
     linea = linea.strip()
+    
     if len(linea) > 0:
         tokens.append("<No definido> {}".format(linea))
     return tokens
