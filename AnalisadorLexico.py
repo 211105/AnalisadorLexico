@@ -12,11 +12,11 @@ def analizar_linea(linea):
             linea = linea.replace(match, " ", 1)
     matches = re.findall(r"(?<!\()(\()(?!\()", linea)
     for match in matches:
-        tokens.append(f"<Parentesis_apertura {match}>")
+        tokens.append(f"<Parentesis apertura {match}>")
         linea = linea.replace(match, " ", 1)
     matches = re.findall(r"(?<!\))(\))(?!\))", linea)
     for match in matches:
-        tokens.append(f"<Parentesis en cierre {match}>")
+        tokens.append(f"<Parentesis cierre {match}>")
         linea = linea.replace(match, " ", 1)
     linea = linea.strip()
     if len(linea) > 0:
@@ -38,12 +38,12 @@ def analizar_codigo():
     for numero_linea, token in tokens_totales:
         resultado_texto.insert(tk.END, f"Linea {numero_linea}\n {token}\n")
         contador_reservadas = len([token for numero_linea, token in tokens_totales if token.startswith("<Reservada")])
-        contador_Parentesis_apertura = len([token for numero_linea, token in tokens_totales if token.startswith("<Parentesis_apertura")])
-        contador_Parentesis_cierre = len([token for numero_linea, token in tokens_totales if token.startswith("<Parentesis en cierre")])
+        contador_Parentesis_apertura = len([token for numero_linea, token in tokens_totales if token.startswith("<Parentesis apertura")])
+        contador_Parentesis_cierre = len([token for numero_linea, token in tokens_totales if token.startswith("<Parentesis cierre")])
 
-    resultado_texto.insert(tk.END, f"\nPalabras reservadas encontradas: {contador_reservadas}\n")
-    resultado_texto.insert(tk.END, f"Parentesis de apertura encontrados: {contador_Parentesis_apertura}\n")
-    resultado_texto.insert(tk.END, f"Parentesis de cierre encontrados: {contador_Parentesis_cierre}\n")
+    resultado_texto.insert(tk.END, f"Reservadas: {contador_reservadas}\n")
+    resultado_texto.insert(tk.END, f"Parentesis de apertura: {contador_Parentesis_apertura}\n")
+    resultado_texto.insert(tk.END, f"Parentesis de cierre: {contador_Parentesis_cierre}\n")
     
 
 
